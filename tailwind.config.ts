@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#4CAF50',
-        error : '#F44336',
-        background: '#1E2A38',
-        input: '#2E3B4E',
-        card: '#34475E',       
+        primary: '#2BD17E',
+        error : '#EB5757',
+        background: '#093545',
+        input: '#224957',
+        card: '#092C39',       
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
