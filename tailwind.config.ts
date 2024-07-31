@@ -13,7 +13,9 @@ const config: Config = {
         error : '#EB5757',
         background: '#093545',
         input: '#224957',
-        card: '#092C39',       
+        card: '#092C39',   
+        'custom-border': 'rgba(34, 73, 87, 1)',
+        hover: 'rgba(8, 41, 53, 0.55)',   
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
@@ -31,7 +33,9 @@ const config: Config = {
         10:'64px',
         11:'80px',
         12:'120px',
-        13:'160px',
+        13:'200px',
+        14:'300px',
+        15:'420px',
       },
       maxWidth: {
         Container: '1440px',
