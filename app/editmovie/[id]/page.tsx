@@ -1,15 +1,15 @@
 'use client';
-
-import { gql, useMutation } from '@apollo/client';
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Input from "../components/Input";
-import GroupButton from "../components/buttonGroup";
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import Input from "../../components/Input";
+import GroupButton from "../../components/buttonGroup";
 
-// Define the GraphQL mutation
-const CREATE_MOVIE = gql`
-  mutation CreateMovie($title: String!, $year: Int!, $link: String!, $userId: Int!) {
-    createMovie(title: $title, year: $year, link: $link, userId: $userId) {
+const GET_MOVIE = gql`
+  query GetMovie($id: Int!) {
+    getmovie(id: $id) {
+      id
       title
       year
       jpgFilePath
@@ -17,60 +17,65 @@ const CREATE_MOVIE = gql`
   }
 `;
 
-export default function CreateMovie() {
-    // State hooks for form fields
-    const [link, setLink] = useState('');
+const EDIT_MOVIE = gql`
+  mutation EditMovie($id: Int!, $title: String, $year: Int, $link: String) {
+    editMovie(id: $id, title: $title, year: $year, link: $link) {
+      id
+      title
+      year
+      jpgFilePath
+    }
+  }
+`;
+
+
+export default function EditMovie() {
+    const params = useParams();
+    const router = useRouter();
+    const id = params.id as string;
+
     const [title, setTitle] = useState('');
     const [year, setYear] = useState('');
-    const [userId, setUserId] = useState<number | null>(null);
+    const [imageLink, setImageLink] = useState('');
 
-    // Apollo useMutation hook
-    const [createMovie, { loading, error }] = useMutation(CREATE_MOVIE);
+    const { loading: queryLoading, error: queryError, data: movieData } = useQuery(GET_MOVIE, {
+        variables: { id: parseInt(id as string) },
+        skip: !id,
+    });
 
-
+    const [editMovie, { loading: mutationLoading, error: mutationError }] = useMutation(EDIT_MOVIE);
     useEffect(() => {
-        const storedUserId = localStorage.getItem('userID');
-        if (storedUserId) {
-            setUserId(parseInt(storedUserId));
+        if (movieData && movieData.getmovie) {
+            setTitle(movieData.getmovie.title);
+            setYear(movieData.getmovie.year.toString());
+            setImageLink(movieData.getmovie.jpgFilePath);
         }
-    }, []);
-    console.log(userId)
-    
+    }, [movieData]);
 
-    // Handle form submission
-    const handleSubmit = async (event: FormEvent) => {
-        event.preventDefault();
-
-        if (!link || !title || !year || userId === null) {
-            alert("Please fill in all fields. or  userId is not present ");
-            return;
-        }
-
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
         try {
-            const { data } = await createMovie({
+            await editMovie({
                 variables: {
+                    id: parseInt(id as string),
                     title,
                     year: parseInt(year),
-                    link,
-                    userId
+                    link: imageLink
                 }
             });
-
-            console.log('Movie created:', data.createMovie);
-            alert('Movie created successfully!');
-            // Reset form fields
-            setLink('');
-            setTitle('');
-            setYear('');
+            router.push('/movielist');
         } catch (err) {
-            console.error('Error creating movie:', err);
-            alert('Failed to create movie. Please try again.');
+            console.error('Error editing movie:', err);
         }
     };
+
+    if (queryLoading) return <p>Loading...</p>;
+    if (queryError) return <p>Error: {queryError.message}</p>;
+
     return (
-        <form onSubmit={handleSubmit} className="min-h-screen p-4 sm:p-12 flex flex-col justify-between">
+        <form onSubmit={handleSubmit} className="min-h-screen m-4 sm:p-12 flex flex-col justify-between">
             <div>
-                <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-6">Create a new movie</h2>
+                <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-6">Edit</h2>
                 
                 <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
                     <div
@@ -99,23 +104,22 @@ export default function CreateMovie() {
                                 id="title" 
                                 className="w-full sm:w-[360px] mb-4" 
                                 value={title}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-                            />
+                                onChange={(e) => setTitle(e.target.value)} />
                             <Input 
                                 label="Publishing year" 
                                 type="text" 
                                 id="year" 
                                 className="w-full sm:w-[200px] mb-4" 
                                 value={year}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setYear(e.target.value)}
+                                onChange={(e) => setYear(e.target.value)}
                             />
                             <Input 
                                 label="Image Link" 
                                 type="text" 
                                 id="link" 
                                 className="w-full sm:w-[360px] mb-4" 
-                                value={link}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setLink(e.target.value)}
+                                value={imageLink}
+                                onChange={(e) => setImageLink(e.target.value)}
                             />
                         </div>
                         <div className="order-3 sm:order-none">
@@ -124,7 +128,6 @@ export default function CreateMovie() {
                     </div>
                 </div>
             </div>
-            {error && <p className="text-red-500 mt-4">Error: {error.message}</p>}
         </form>
     );
 }

@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.2",
     "@heroicons/react": "^2.1.5",
+    "apollo-upload-client": "^18.0.1",
+    "graphql": "^16.9.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
