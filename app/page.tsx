@@ -13,7 +13,7 @@ export default function Home() {
     const handleSubmit = async (event: any) => {
      event.preventDefault();
      try{
-        const res = await  fetch('http://localhost:3000/auth/login',{
+        const res = await  fetch(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/auth/login`,{
             method: 'POST',
             headers: {
                 'Content-Type':'application/json',
