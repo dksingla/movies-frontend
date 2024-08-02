@@ -29,8 +29,8 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
-          <div className="relative w-1500 sm:w-full  h-7 sm:h-12 mt-7 ">
-            <Image src="/Vectors.svg" alt="My SVG Icon" layout="fill" fill={true} />
+          <div className="relative w-full h-7 sm:h-12 mt-7">
+            <Image src="/Vectors.svg" alt="My SVG Icon" layout="fill" objectFit="cover" />
           </div>
         </ApolloWrapper>
       </body>
