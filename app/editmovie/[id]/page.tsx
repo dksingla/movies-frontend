@@ -5,6 +5,7 @@ import { useMutation, useQuery, gql } from '@apollo/client';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Input from "../../components/Input";
 import GroupButton from "../../components/buttonGroup";
+import withAuth from '@/app/components/withAuth';
 
 const GET_MOVIE = gql`
   query GetMovie($id: Int!) {
@@ -29,7 +30,7 @@ const EDIT_MOVIE = gql`
 `;
 
 
-export default function EditMovie() {
+function EditMovie() {
     const params = useParams();
     const router = useRouter();
     const id = params.id as string;
@@ -131,3 +132,4 @@ export default function EditMovie() {
         </form>
     );
 }
+export default withAuth(EditMovie)

@@ -1,8 +1,9 @@
 'use client'
 import Button from "../components/Button"
 import { useRouter } from 'next/navigation';
+import withAuth from "../components/withAuth";
 
-export default function EmptyState() {
+function EmptyState() {
     const router = useRouter();
 
     const handleAddMovieClick = () => {
@@ -25,3 +26,4 @@ export default function EmptyState() {
         </div>
     );
 }
+export default withAuth(EmptyState)

@@ -2,9 +2,12 @@
 
 import { gql, useQuery } from '@apollo/client';
 import Card from "../components/card";
+import Pagination from '../components/pagination';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import withAuth from '../components/withAuth';
 
 
 const GET_MOVIES = gql`
@@ -22,7 +25,7 @@ const GET_MOVIES = gql`
   }
 `;
 
-export default function MovieList() {
+ function MovieList() {
     const [page, setPage] = useState(1);
     const { data, loading, error } = useQuery(GET_MOVIES, {
         variables: { page },
@@ -35,16 +38,18 @@ export default function MovieList() {
     const { movies, totalPages } = data.getmovies;
     console.log(movies)
 
-    const handlePrevPage = () => {
-        if (page > 1) setPage(page - 1);
-    };
-
-    const handleNextPage = () => {
-        if (page < totalPages) setPage(page + 1);
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
     };
     const gotToCreate = () => {
         router.push('/createmovie')
     }
+    const handleLogout = () => {
+        Cookies.remove('token'); 
+       
+        localStorage.removeItem('userID');
+        router.push('/');
+    };
 
     return (
         <div className="min-h-screen p-4 sm:p-8">
@@ -55,51 +60,20 @@ export default function MovieList() {
                 </div>
                 <div className="flex items-center">
                     <h2 className="hidden sm:inline text-sm sm:text-base md:text-xl font-medium text-white sm:mr-4">Logout</h2>
-                    <Icon className="text-white text-xl sm:text-2xl" icon="ic:outline-logout" />
+                    <Icon className="text-white text-xl sm:text-2xl" icon="ic:outline-logout" onClick={handleLogout} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:mx-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 sm:mx-10">
                 {movies.map((movie: { jpgFilePath: string; title: string; year: number ; id:number }) => (
                     <Card id={movie.id} key={movie.id} imageSrc={movie.jpgFilePath} title={movie.title} year={movie.year.toString()} />
                 ))}
             </div>
-            <div className="flex justify-center items-center mt-6 sm:mt-8">
-                <button
-                    className="text-white px-4 py-2"
-                    onClick={handlePrevPage}
-                    disabled={page === 1}
-                >
-                    Prev
-                </button>
-                <div className="flex items-center space-x-2 sm:space-x-3 mx-4">
-                    {(() => {
-                        const pageButtons = [];
-                        const pageRange = 2; // Show 2 pages before and after the current page
-
-                        for (let i = Math.max(1, page - pageRange); i <= Math.min(totalPages, page + pageRange); i++) {
-                            pageButtons.push(
-                                <button
-                                    key={i}
-                                    className={`text-white px-4 py-1 rounded text-sm sm:text-base ${page === i ? 'bg-primary' : 'bg-card'
-                                        }`}
-                                    onClick={() => setPage(i)}
-                                >
-                                    {i}
-                                </button>
-                            );
-                        }
-
-                        return pageButtons;
-                    })()}
-                </div>
-                <button
-                    className="text-white px-4 py-2"
-                    onClick={handleNextPage}
-                    disabled={page === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+            <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     );
 }
+export default withAuth(MovieList);

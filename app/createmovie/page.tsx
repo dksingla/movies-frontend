@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Input from "../components/Input";
 import GroupButton from "../components/buttonGroup";
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import withAuth from '../components/withAuth';
 
 // Define the GraphQL mutation
 const CREATE_MOVIE = gql`
@@ -17,7 +18,7 @@ const CREATE_MOVIE = gql`
   }
 `;
 
-export default function CreateMovie() {
+function CreateMovie() {
     // State hooks for form fields
     const [link, setLink] = useState('');
     const [title, setTitle] = useState('');
@@ -128,3 +129,4 @@ export default function CreateMovie() {
         </form>
     );
 }
+export default withAuth(CreateMovie)

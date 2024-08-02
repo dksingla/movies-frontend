@@ -23,7 +23,7 @@ export default function Home() {
         if(res.ok){
             const data = await res.json()
             console.log("data is:",data)
-            localStorage.setItem('token',data.access_token)
+            document.cookie = `token=${data.access_token}; path=/;`;
             localStorage.setItem('userID',data.id)
 
             console.log('Login Succesfull')
