@@ -6,6 +6,8 @@ import Input from "../components/Input";
 import GroupButton from "../components/buttonGroup";
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import withAuth from '../components/withAuth';
+import { useRouter } from 'next/navigation';
+
 
 // Define the GraphQL mutation
 const CREATE_MOVIE = gql`
@@ -19,6 +21,7 @@ const CREATE_MOVIE = gql`
 `;
 
 function CreateMovie() {
+    const router = useRouter()
     // State hooks for form fields
     const [link, setLink] = useState('');
     const [title, setTitle] = useState('');
@@ -59,6 +62,7 @@ function CreateMovie() {
 
             console.log('Movie created:', data.createMovie);
             alert('Movie created successfully!');
+            router.push('/movielist')
             // Reset form fields
             setLink('');
             setTitle('');
