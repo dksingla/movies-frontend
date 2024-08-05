@@ -8,9 +8,10 @@ interface InputProps {
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error?: boolean;
+    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default function Input({ label, type, id,value, className, onChange , error}: InputProps) {
+export default function Input({ label, type, id,value, className, onChange , onFocus, error}: InputProps) {
     return (
         <div className="mb-4">
             <input
@@ -19,6 +20,7 @@ export default function Input({ label, type, id,value, className, onChange , err
                 id={id}
                 value={value}
                 onChange={onChange}
+                onFocus={onFocus}
                 className={`w-full px-4 py-3 rounded-lg mt-1 text-white bg-input ${className} ${error ? 'border-2 border-error' : ''}`}
             />
         </div>
