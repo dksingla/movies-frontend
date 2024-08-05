@@ -54,7 +54,8 @@ const GET_MOVIES = gql`
     };
 
     // Base URL for the backend where images are served
-    const BASE_URL = 'http://localhost:3000/image/'; // Change this to your production URL if needed
+    const IMG_URL = `${process.env.NEXT_PUBLIC_BACKEND_LINK}/image/`;
+
 
     return (
         <div className="min-h-screen p-4 sm:p-8">
@@ -75,7 +76,7 @@ const GET_MOVIES = gql`
                     <Card
                         id={movie.id}
                         key={movie.id}
-                        imageSrc={`${BASE_URL}${movie.jpgFilePath}`} // Construct full URL here
+                        imageSrc={`${IMG_URL}${movie.jpgFilePath}`} // Construct full URL here
                         title={movie.title}
                         year={movie.year.toString()}
                     />
