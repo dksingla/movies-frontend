@@ -12,7 +12,7 @@ export default function Card({ id, imageSrc, title, year }: CardProps) {
   return (
     <div className="bg-card rounded-2xl overflow-hidden transform hover:bg-hover transition-transform duration-300  m-3 flex flex-col p-1">
       <div className="flex-grow">
-        <img
+        <Image
           src={imageSrc}
           alt={title}
           width={180}

@@ -76,7 +76,7 @@ const GET_MOVIES = gql`
                     <Card
                         id={movie.id}
                         key={movie.id}
-                        imageSrc={`${IMG_URL}${movie.jpgFilePath}`} // Construct full URL here
+                        imageSrc={movie.jpgFilePath} // Construct full URL here
                         title={movie.title}
                         year={movie.year.toString()}
                     />

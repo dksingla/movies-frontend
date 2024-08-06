@@ -28,7 +28,7 @@ function EditMovie() {
 
     const [title, setTitle] = useState('');
     const [year, setYear] = useState('');
-    const [imageLink, setImageLink] = useState('');
+    // const [imageLink, setImageLink] = useState('');
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [file, setFile] = useState<File | null>(null); // State for the selected file
 
@@ -42,7 +42,7 @@ function EditMovie() {
         if (movieData && movieData.getmovie) {
             setTitle(movieData.getmovie.title);
             setYear(movieData.getmovie.year.toString());
-            setImageLink(movieData.getmovie.jpgFilePath);
+            // setImageLink(movieData.getmovie.jpgFilePath);
             setStartDate(new Date(movieData.getmovie.year, 0, 1));
         }
     }, [movieData]);
@@ -83,7 +83,7 @@ function EditMovie() {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile); // Update the state with the selected file
-            setImageLink(selectedFile.name); // Optionally, set the image link to the file name
+            // setImageLink(selectedFile.name); // Optionally, set the image link to the file name
         }
     };
 
@@ -140,14 +140,14 @@ function EditMovie() {
                                 className="w-full px-4 py-3 rounded-lg mt-1 text-white bg-input mb-4"
                                 placeholderText="Publishing Year"
                             />
-                            <Input 
+                            {/* <Input 
                                 label="Image Link" 
                                 type="text" 
                                 id="link" 
                                 className="w-full sm:w-[360px] mb-4" 
                                 value={imageLink}
                                 onChange={(e) => setImageLink(e.target.value)}
-                            />
+                            /> */}
                         </div>
                         <div className="order-3 sm:order-none">
                             <GroupButton type="submit" />
