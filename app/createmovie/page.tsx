@@ -16,6 +16,7 @@ function CreateMovie() {
   const [year, setYear] = useState('');
   const [userId, setUserId] = useState<number | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userID');
@@ -26,6 +27,7 @@ function CreateMovie() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setLoading(true);
 
     if (!file || !title || !year || userId === null) {
       alert("Please fill in all fields and upload an image.");
@@ -46,9 +48,8 @@ function CreateMovie() {
 
       if (response.ok) {
         console.log('Movie created successfully! ');
-        console.log('file is :', file)
-        alert('Movie created successfully!');
-        router.push('/movielist');
+        window.location.href = '/movielist';
+
         // Reset form fields
         setFile(null);
         setTitle('');
@@ -62,6 +63,8 @@ function CreateMovie() {
     } catch (err) {
       console.error('Error creating movie:', err);
       alert('Failed to create movie. Please try again.');
+    }finally {
+      setLoading(false); 
     }
   };
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +126,7 @@ function CreateMovie() {
                                 />
                             </div>
                             <div className="order-3 sm:order-none">
-                                <GroupButton type="submit" /> {/* Button to submit the form */}
+                                <GroupButton type="submit" loading={loading}/> {/* Button to submit the form */}
                             </div>
                         </div>
                     </div>

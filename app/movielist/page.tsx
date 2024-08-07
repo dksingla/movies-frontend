@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import withAuth from '../components/withAuth';
+import MovieSkeleton from '../components/MovieSkeleton';
 
 const GET_MOVIES = gql`
   query GetMovies($page: Int!) {
@@ -24,18 +25,14 @@ const GET_MOVIES = gql`
   }
 `;
 
- function MovieList() {
+function MovieList() {
     const [page, setPage] = useState(1);
     const { data, loading, error } = useQuery(GET_MOVIES, {
         variables: { page },
     });
     const router = useRouter();
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
-    const { movies, totalPages } = data.getmovies;
-    console.log(movies);
+    if (error) return <p className='text-white font-bold'>Error: {error.message}</p>;
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
@@ -46,16 +43,10 @@ const GET_MOVIES = gql`
     const handleLogout = () => {
         Cookies.remove('token'); 
         Cookies.remove('token'); 
-       
         Cookies.remove('token');
-       
         localStorage.removeItem('userID');
         router.push('/');
     };
-
-    // Base URL for the backend where images are served
-    const IMG_URL = `${process.env.NEXT_PUBLIC_BACKEND_LINK}/image/`;
-
 
     return (
         <div className="min-h-screen p-4 sm:p-8">
@@ -66,27 +57,31 @@ const GET_MOVIES = gql`
                 </div>
                 <div className="flex items-center">
                     <h2 className="hidden sm:inline text-sm sm:text-base md:text-xl font-medium text-white sm:mr-4">Logout</h2>
-                    <Icon className="text-white text-xl sm:text-2xl" icon="ic:outline-logout" onClick={handleLogout} />
+                    <Icon className="text-white text-xl sm:text-2xl cursor-pointer" icon="ic:outline-logout" onClick={handleLogout} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 sm:mx-10">
-                {movies.map((movie: { jpgFilePath: string; title: string; year: number; id: number }) =>{
-
-                 return (
-                    <Card
-                        id={movie.id}
-                        key={movie.id}
-                        imageSrc={movie.jpgFilePath} // Construct full URL here
-                        title={movie.title}
-                        year={movie.year.toString()}
+            {loading ? (
+                <MovieSkeleton />
+            ) : data && data.getmovies ? (
+                <>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 sm:mx-10">
+                        {data.getmovies.movies.map((movie: { jpgFilePath: string; title: string; year: number; id: number }) => (
+                            <Card
+                                id={movie.id}
+                                key={movie.id}
+                                imageSrc={movie.jpgFilePath}
+                                title={movie.title}
+                                year={movie.year.toString()}
+                            />
+                        ))}
+                    </div>
+                    <Pagination
+                        page={page}
+                        totalPages={data.getmovies.totalPages}
+                        onPageChange={handlePageChange}
                     />
-                )})}
-            </div>
-            <Pagination
-                page={page}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-            />
+                </>
+            ) : null}
         </div>
     );
 }

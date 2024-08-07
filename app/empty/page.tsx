@@ -17,7 +17,7 @@ function EmptyState() {
                     Your movie list is empty
                 </h6>
                 <Button
-                    className="text-sm text-yellow-50 font-bold mt-3 sm:h-[56px] w-[350px] sm:w-[200px]"
+                    className="text-sm text-yellow-50 font-bold mt-3 sm:h-[50px] w-[350px] sm:w-[200px]"
                     text="Add a new movie"
                     type="button"
                     onClick={handleAddMovieClick}
