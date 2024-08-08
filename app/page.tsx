@@ -53,7 +53,7 @@ export default function Home() {
             })
             if (res.ok) {
                 const data = await res.json()
-                document.cookie = `token=${data.access_token}; path=/;`;
+                document.cookie = `token=${data.accessToken}; path=/;`;
                 localStorage.setItem('userID', data.id)
 
                 if (rememberMe) {
