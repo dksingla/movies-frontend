@@ -36,6 +36,8 @@ export default function Home() {
     }
 
     const handleSubmit = async (event: any) => {
+        console.log(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/auth/login`);
+
         event.preventDefault();
         if (!validateForm()) {
             return;
@@ -47,12 +49,10 @@ export default function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
-                credentials: 'include' 
+                body: JSON.stringify({ email, password })
             })
             if (res.ok) {
                 const data = await res.json()
-                console.log("data is:", data)
                 document.cookie = `token=${data.access_token}; path=/;`;
                 localStorage.setItem('userID', data.id)
 
