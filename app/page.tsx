@@ -102,9 +102,9 @@ export default function Home() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         error={!!error}
-                        className="focus:border-custom-border focus:border-2 focus:outline-none"
+                        className="focus:border-custom-border focus:border-2 mt-2 focus:outline-none"
                     />
-                    <div className="flex items-center justify-center mb-6">
+                    <div className="flex items-center justify-center mb-6 mt-7">
                         <label className="flex items-center text-white">
                             <input
                                 type="checkbox"

@@ -118,10 +118,15 @@ function EditMovie() {
                             style={{ display: 'none' }}
                             onChange={handleFileChange}
                         />
-                        <Icon
-                            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-3xl z-10"
-                            icon="material-symbols:edit-sharp"
-                        />
+
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                            <div className="bg-black bg-opacity-50 rounded-full p-3">
+                                <Icon
+                                    className="text-white text-4xl"
+                                    icon="material-symbols:edit-outline"
+                                />
+                            </div>
+                        </div>
                         {imageLink ? (
                             <Image
                                 src={imageLink}
