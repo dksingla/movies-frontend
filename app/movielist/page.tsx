@@ -41,8 +41,6 @@ function MovieList() {
         router.push('/createmovie');
     };
     const handleLogout = () => {
-        Cookies.remove('token'); 
-        Cookies.remove('token'); 
         Cookies.remove('token');
         localStorage.removeItem('userID');
         router.push('/');
