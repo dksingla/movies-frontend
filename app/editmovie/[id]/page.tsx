@@ -110,7 +110,7 @@ function EditMovie() {
 
                 <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
                     <div
-                        className="order-2 sm:order-1 w-full sm:w-1/2 h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer relative"
+                        className="w-full sm:w-1/2 h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer relative"
                         onClick={() => document.getElementById('fileInput')?.click()}
                     >
                         <input
@@ -146,31 +146,28 @@ function EditMovie() {
                             </div>
                         )}
                     </div>
-
-
-                    <div className="order-1 sm:order-2 sm:w-1/2 sm:h-1/2 flex flex-col sm:-ml-6 ">
-                        <Input
-                            label="Title"
-                            type="text"
-                            id="title"
-                            value={title}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-                            className="w-full sm:w-[360px] mb-4"
-                        />
-                        <DatePicker
-                            selected={startDate}
-                            onChange={handleDateChange}
-                            showYearPicker
-                            dateFormat="yyyy"
-                            className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input  "
-                            placeholderText="Publishing Year"
-                            popperClassName="react-datepicker-popper"
-                            popperPlacement="bottom-start"
-                        />
-                    </div>
-
-                    {/* GroupButton Div (Right Bottom) */}
-                    <div className="w-full sm:w-1/2 sm:h-1/2 sm:absolute sm:pl-11 sm:pb-12 sm:right-0 order-3 flex items-end">
+                    <div>
+                        {/* Title and DatePicker Div (Right Top) */}
+                        <div className=" flex flex-col sm:-ml-6 ">
+                            <Input
+                                label="Title"
+                                type="text"
+                                id="title"
+                                className="w-full sm:w-[360px] mb-4"
+                                value={title}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+                            />
+                            <DatePicker
+                                selected={startDate}
+                                onChange={handleDateChange}
+                                showYearPicker
+                                dateFormat="yyyy"
+                                className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input relative z-10"
+                                placeholderText="Publishing Year"
+                                popperClassName="react-datepicker-popper"
+                                popperPlacement="bottom-start"
+                            />
+                        </div>
                         <GroupButton type="submit" loading={loading} />
                     </div>
                 </div>
