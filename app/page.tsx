@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Input from "./components/Input";
 import Button from "./components/Button";
+import withAuth from './components/withAuth';
 
-export default function Home() {
+ function Home() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -125,3 +126,4 @@ export default function Home() {
         </div>
     );
 }
+export default withAuth(Home);

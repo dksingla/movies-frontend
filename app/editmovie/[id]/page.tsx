@@ -104,13 +104,15 @@ function EditMovie() {
     if (queryError) return <p>Error: {queryError.message}</p>;
 
     return (
-        <form onSubmit={handleSubmit} className="min-h-screen m-4 sm:p-12 flex flex-col justify-between">
+        <form onSubmit={handleSubmit} className="min-h-screen p-4  sm:p-12 flex flex-col justify-between">
             <div>
-                <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-6">Edit Movie</h2>
+                <h2 className="text-3xl sm:text-5xl font-semibold text-white sm:my-0 my-10">Edit Movie</h2>
 
                 <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
-                    <div className="order-2 sm:order-1 w-full sm:w-[473px] h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white relative overflow-hidden cursor-pointer"
-                        onClick={() => document.getElementById('fileInput')?.click()}>
+                    <div
+                        className="order-2 sm:order-1 w-full sm:w-1/2 h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer relative"
+                        onClick={() => document.getElementById('fileInput')?.click()}
+                    >
                         <input
                             type="file"
                             id="fileInput"
@@ -127,13 +129,17 @@ function EditMovie() {
                                 />
                             </div>
                         </div>
+
                         {imageLink ? (
-                            <Image
-                                src={imageLink}
-                                alt={title || "Uploaded image"}
-                                layout="fill"
-                                objectFit="cover"
-                            />
+                            <div className="w-full h-full relative rounded-2xl overflow-hidden">
+                                <Image
+                                    src={imageLink}
+                                    alt={title || "Uploaded image"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-2xl"
+                                />
+                            </div>
                         ) : (
                             <div className="flex items-center justify-center h-full">
                                 <p className="text-white font-thin">Drop an image here</p>
@@ -141,35 +147,29 @@ function EditMovie() {
                         )}
                     </div>
 
-                    <div className="sm:order-2 flex flex-col gap-6">
-                        <div className="order-1 sm:order-none">
-                            <Input
-                                label="Title"
-                                type="text"
-                                id="title"
-                                className="w-full sm:w-[360px] mb-4"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)} />
-                            <DatePicker
-                                selected={startDate}
-                                onChange={handleDateChange}
-                                showYearPicker
-                                dateFormat="yyyy"
-                                className="w-full px-4 py-3 rounded-lg mt-1 text-white bg-input mb-4"
-                                placeholderText="Publishing Year"
-                            />
-                            {/* <Input 
-                                label="Image Link" 
-                                type="text" 
-                                id="link" 
-                                className="w-full sm:w-[360px] mb-4" 
-                                value={imageLink}
-                                onChange={(e) => setImageLink(e.target.value)}
-                            /> */}
-                        </div>
-                        <div className="order-3 sm:order-none">
-                            <GroupButton type="submit" loading={loading} />
-                        </div>
+
+                    <div className="order-1 sm:order-2 sm:w-1/2 sm:h-1/2 flex flex-col sm:-ml-6 ">
+                        <Input
+                            label="Title"
+                            type="text"
+                            id="title"
+                            className="w-full sm:w-[360px] mb-4"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <DatePicker
+                            selected={startDate}
+                            onChange={handleDateChange}
+                            showYearPicker
+                            dateFormat="yyyy"
+                            className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input"
+                            placeholderText="Publishing Year"
+                        />
+                    </div>
+
+                    {/* GroupButton Div (Right Bottom) */}
+                    <div className="w-full sm:w-1/2 sm:h-1/2 sm:absolute sm:pl-11 sm:pb-12 sm:right-0 order-3 flex items-end">
+                        <GroupButton type="submit" loading={loading} />
                     </div>
                 </div>
             </div>

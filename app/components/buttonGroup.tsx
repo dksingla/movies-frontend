@@ -15,17 +15,17 @@ const GroupButton: React.FC<Prop> = ({ className, type = 'button', loading = fal
     };
 
     return (
-        <div className={`flex sm:flex-row mt-11 ${className}`}>
+        <div className={`flex sm:flex-row sm:mt-11 ${className}`}>
             <button
                 type="button"
-                className="bg-background border-white border-2 rounded-xl mb-3 sm:mb-0 mr-5 sm:mr-3 text-white w-[190px] sm:w-[160px] h-[50px]"
+                className="bg-background border-white border-2 rounded-xl mb-3 sm:mb-0 mr-5 sm:mr-3 text-white w-[160px]  h-[50px]"
                 onClick={handleCancel}
             >
                 Cancel
             </button>
             <button
                 type={type}
-                className="bg-primary text-white rounded-xl w-[190px] sm:w-[160px] h-[50px] relative"
+                className="bg-primary text-white rounded-xl w-[160px]  h-[50px] relative"
                 disabled={loading}
             >
                 {loading ? (
