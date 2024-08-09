@@ -127,7 +127,6 @@ function CreateMovie() {
               placeholderText="Publishing Year"
               popperClassName="react-datepicker-popper"
               popperPlacement="bottom-start"
-              
             />
           </div>
 
