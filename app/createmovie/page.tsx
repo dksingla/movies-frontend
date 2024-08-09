@@ -92,7 +92,7 @@ function CreateMovie() {
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
           {/* File Upload Div (Left) */}
           <div
-            className="order-2 sm:order:1 w-full sm:w-1/2 h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer"
+            className="order-2 sm:order:1 w-full sm:w-[670px] h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer"
             onClick={() => document.getElementById('fileInput')?.click()}
           >
             <input
