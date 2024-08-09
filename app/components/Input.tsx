@@ -22,6 +22,7 @@ export default function Input({ label, type, id,value, className, onChange , onF
                 onChange={onChange}
                 onFocus={onFocus}
                 className={`w-full px-4 py-3 rounded-lg mt-1 text-white bg-input ${className} ${error ? 'border-2 border-error' : ''}`}
+                style={{ zIndex: 10, position: 'relative' }}
             />
         </div>
     );

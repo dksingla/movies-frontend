@@ -123,7 +123,7 @@ function CreateMovie() {
               onChange={handleDateChange}
               showYearPicker
               dateFormat="yyyy"
-              className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input"
+              className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input relative z-10"
               placeholderText="Publishing Year"
             />
           </div>

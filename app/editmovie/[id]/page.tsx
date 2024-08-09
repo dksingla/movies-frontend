@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery, gql } from '@apollo/client';
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -153,17 +153,18 @@ function EditMovie() {
                             label="Title"
                             type="text"
                             id="title"
-                            className="w-full sm:w-[360px] mb-4"
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+                            className="w-full sm:w-[360px] mb-4"
                         />
                         <DatePicker
                             selected={startDate}
                             onChange={handleDateChange}
                             showYearPicker
                             dateFormat="yyyy"
-                            className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input"
+                            className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input  "
                             placeholderText="Publishing Year"
+                            
                         />
                     </div>
 
