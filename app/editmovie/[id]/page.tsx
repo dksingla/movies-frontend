@@ -151,7 +151,7 @@ function EditMovie() {
                         label="Title"
                         type="text"
                         id="title"
-                        className="w-full sm:w-[360px] mb-4"
+                        className="w-full sm:w-[360px] mb-4 sm:mb-0"
                         value={title}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
                     />
