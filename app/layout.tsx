@@ -24,9 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${montserrat.className} bg-background flex flex-col min-h-screen`}>
+      <body className={`${inter.className} ${montserrat.className} bg-background min-h-screen`}>
         <ApolloWrapper>
-          <main className="flex-grow">
+          <main className="container mx-auto min-h-screen">
             {children}
           </main>
           <div className="relative w-full h-7 sm:h-12 mt-7">

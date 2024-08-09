@@ -3,7 +3,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Input from "../components/Input";
 import GroupButton from "../components/buttonGroup";
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import withAuth from '../components/withAuth';
 import { useRouter } from 'next/navigation';
 import DatePicker from 'react-datepicker';
@@ -25,13 +25,12 @@ function CreateMovie() {
     }
   }, []);
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleCreateMovie = async () => {
     setLoading(true);
 
     if (!file || !title || !year || userId === null) {
       alert("Please fill in all fields and upload an image.");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -68,6 +67,7 @@ function CreateMovie() {
       setLoading(false);
     }
   };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
@@ -85,57 +85,54 @@ function CreateMovie() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="min-h-screen p-4 sm:p-12 flex flex-col justify-between">
-      <div>
-        <h2 className="text-3xl sm:text-5xl font-semibold text-white sm:my-0 my-10">Create a new movie</h2>
+    <div className="sm:mt-12 p-4 sm:px-12 sm:p-6 h-full">
+      <h2 className="text-3xl sm:text-5xl my-10 sm:my-0 font-semibold text-white">Create a new movie</h2>
 
-        <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
-          {/* File Upload Div (Left) */}
-          <div
-            className=" w-full sm:w-[670px] h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer"
-            onClick={() => document.getElementById('fileInput')?.click()}
-          >
-            <input
-              type="file"
-              id="fileInput"
-              accept=".jpg,.jpeg"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
-            <Icon className="text-white text-2xl" icon="material-symbols:download" />
-            <h4 className="text-white font-thin">
-              {file ? file.name : "Drop an image here"}
-            </h4>
-          </div>
-          <div>
-            {/* Title and DatePicker Div (Right Top) */}
-            <div className=" flex flex-col sm:-ml-6 ">
-              <Input
-                label="Title"
-                type="text"
-                id="title"
-                className="w-full sm:w-[360px] mb-4"
-                value={title}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
-              />
-              <DatePicker
-                selected={startDate}
-                onChange={handleDateChange}
-                showYearPicker
-                dateFormat="yyyy"
-                className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input relative z-10"
-                placeholderText="Publishing Year"
-                popperClassName="react-datepicker-popper"
-                popperPlacement="bottom-start"
-              />
-            </div>
-              <GroupButton type="submit" loading={loading} />
-          </div>
+      <div className="grid grid-rows-4 sm:grid-flow-col gap-6 sm:gap-10 pt-0 sm:pt-12">
+        {/* File Upload Div (Left) */}
+        <div
+          className="sm:order-1 order-2 row-span-4 cursor-pointer bg-input rounded-xl border-2 flex flex-col items-center justify-center border-dashed border-white sm:h-[530px] sm:w-[490px]"
+          onClick={() => document.getElementById('fileInput')?.click()}
+        >
+          <input
+            type="file"
+            id="fileInput"
+            accept=".jpg,.jpeg"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+          <Icon className="text-white text-2xl" icon="material-symbols:download" />
+          <h4 className="text-white font-thin">
+            {file ? file.name : "Drop an image here"}
+          </h4>
+        </div>
 
+        <div className="sm:order-2 order-1 ">
+          <Input
+            label="Title"
+            type="text"
+            id="title"
+            className="w-full sm:w-[360px] mb-4 sm:mb-0 "
+            value={title}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+          />
 
+          <DatePicker
+            selected={startDate}
+            onChange={handleDateChange}
+            showYearPicker
+            dateFormat="yyyy"
+            className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 mb-4 sm:mb-8 text-white bg-input relative"
+            placeholderText="Publishing Year"
+            // popperClassName="react-datepicker-popper"
+            popperPlacement="bottom-start"
+          />
+        </div>
+        <div className="order-3">
+          <GroupButton onClick={handleCreateMovie} loading={loading} />
         </div>
       </div>
-    </form>
+    </div>
   );
 }
 
