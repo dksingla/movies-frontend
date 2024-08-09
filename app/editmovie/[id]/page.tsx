@@ -164,7 +164,8 @@ function EditMovie() {
                             dateFormat="yyyy"
                             className="w-full sm:w-[220px] px-4 py-3 rounded-lg mt-1 text-white bg-input  "
                             placeholderText="Publishing Year"
-                            
+                            popperClassName="react-datepicker-popper"
+                            popperPlacement="bottom-start"
                         />
                     </div>
 
