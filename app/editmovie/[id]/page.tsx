@@ -110,7 +110,7 @@ function EditMovie() {
 
                 <div className="flex flex-col sm:flex-row gap-6 sm:gap-13 pt-0 sm:pt-12">
                     <div
-                        className="w-full sm:w-1/2 h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer relative"
+                        className="w-full sm:w-[670px] h-[300px] sm:h-[504px] bg-input rounded-2xl border-2 border-dashed border-white flex flex-col items-center justify-center cursor-pointer relative"
                         onClick={() => document.getElementById('fileInput')?.click()}
                     >
                         <input
